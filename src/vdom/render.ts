@@ -8,7 +8,7 @@ function renderElement({ tagName, attrs, children}: IElementNode) {
     }
 
     for (const child of children!) {
-        $element.appendChild(render(child))
+        $element.appendChild(render(child as IElementNode))
     }
 
     return $element
