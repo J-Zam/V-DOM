@@ -8,13 +8,13 @@ function renderElement({ tagName, attrs, children}: IElementNode) {
     }
 
     for (const child of children!) {
-        $element.appendChild(render(child as IElementNode))
+        $element.appendChild(render(child))
     }
 
     return $element
 }
 
-export function render(vNode: IElementNode) {
+export function render(vNode: IElementNode | string) {
     if (typeof vNode === "string")  
         return document.createTextNode(vNode)
 
