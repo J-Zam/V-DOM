@@ -26,10 +26,10 @@ let vApp = createVirtualApp(count);
 let $app = render(vApp);
 let $rootTag = mount($app, document.getElementById("app") as HTMLElement);
 
-/* setInterval(() => {
-  count++;
-  const vNewApp = createVirtualApp(count)
-  const patch = diff(vApp, vNewApp)
-  $rootTag = patch($rootTag)
-  vApp = vNewApp;
-}, 1000); */
+//  setInterval(() => {
+//   count++;
+//   const vNewApp = createVirtualApp(count)
+//   const patch = diff(vApp, vNewApp)
+//   $rootTag = patch($rootTag)
+//   vApp = vNewApp;
+// }, 1000); 
