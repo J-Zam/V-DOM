@@ -1,7 +1,6 @@
 import { IElementNode } from "../ts";
 
 export default (
-  
   { tagName, attrs = {}, children = [] }: IElementNode
 ) => {
   const virtualElement = Object.create(null);
