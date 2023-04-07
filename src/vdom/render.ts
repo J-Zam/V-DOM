@@ -3,9 +3,14 @@ import { IElementNode } from "../ts";
 function renderElement({ tagName, attrs, children}: IElementNode) {
     const $element = document.createElement(tagName)
 
+
     for (const [k, v] of Object.entries(attrs)) {
-        $element.setAttribute(k,v)
-    }
+        if (k === "textContent") {
+          $element.textContent = v;
+        } else {
+          $element.setAttribute(k, v);
+        }
+      }
 
     for (const child of children!) {
         $element.appendChild(render(child))
