@@ -1,27 +1,26 @@
 import { IElementNode } from "../ts";
 
-function renderElement({ tagName, attrs, children}: IElementNode) {
-    const $element = document.createElement(tagName)
+function renderElement({ tagName, attrs, children }: IElementNode) {
+  const $element = document.createElement(tagName);
 
-
-    for (const [k, v] of Object.entries(attrs)) {
-        if (k === "textContent") {
-          $element.textContent = v;
-        } else {
-          $element.setAttribute(k, v);
-        }
-      }
-
-    for (const child of children!) {
-        $element.appendChild(render(child))
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "textContent") {
+      $element.setAttribute(k, v);
+      $element.textContent = v;
+    } else {
+      $element.setAttribute(k, v);
     }
+  }
 
-    return $element
+  for (const child of children!) {
+    $element.appendChild(render(child));
+  }
+
+  return $element;
 }
 
 export function render(vNode: IElementNode | string) {
-    if (typeof vNode === "string")  
-        return document.createTextNode(vNode)
+  if (typeof vNode === "string") return document.createTextNode(vNode);
 
-    return renderElement(vNode)
+  return renderElement(vNode);
 }

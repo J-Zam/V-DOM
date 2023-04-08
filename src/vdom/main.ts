@@ -3,23 +3,25 @@ import { createUIElements } from "./uiElement";
 import { bandsList00, bandsList01 } from "../data";
 import mount from "./mount";
 import diff from "./diff";
+import "../style.css";
 
-let uiOptions = [bandsList00, bandsList01]
-let ramdomElement = 0; 
+let nodeTree = document.getElementById("nodeTree") as HTMLElement;
+
+let uiOptions = [bandsList00, bandsList01];
+let ramdomElement = 1;
 
 let vApp = createUIElements(uiOptions[ramdomElement]);
-let $app = render(vApp)
-let $rootTag = mount($app, document.getElementById("app") as HTMLElement)
+let $app = render(vApp);
+let $rootTag = mount($app, document.getElementById("app") as HTMLElement);
+nodeTree.textContent = JSON.stringify(vApp, undefined, 2);
+update()
 
-  setInterval(() => {
-    ramdomElement = Math.floor(Math.random() * 2);
-    const vNewApp = createUIElements(uiOptions[ramdomElement]);
-    console.log(uiOptions[ramdomElement])
-    const patch = diff(vApp, vNewApp);
-    // @ts-ignore
-    $rootTag = patch($rootTag as HTMLElement);
-    vApp = vNewApp;
-  }, 3000);
-
-
-  
+  function update() {
+   setTimeout(() => {
+     let vNewApp = createUIElements(uiOptions[0]);
+     let patch = diff(vApp, vNewApp);
+     $rootTag = patch($rootTag as HTMLElement)!;
+     vApp = vNewApp;
+     nodeTree.textContent = JSON.stringify(vApp, undefined, 2);
+   }, 5000) 
+ } 

@@ -3,20 +3,20 @@ import { IElementNode } from "../ts";
 import { IAttributes, AttributePatch } from "../ts";
 
 export default function diff(
-  oldVTree: IElementNode,
-  newVTree: IElementNode | undefined
+  oldNode: IElementNode,
+  newNode: IElementNode | undefined
 ) {
-  if (newVTree === undefined) {
+  if (newNode === undefined) {
     return ($node: HTMLElement | Text) => {
       $node.remove();
       return undefined;
     };
   }
 
-  if (typeof oldVTree === "string" || typeof newVTree === "string") {
-    if (oldVTree !== newVTree) {
+  if (typeof oldNode === "string" || typeof newNode === "string") {
+    if (oldNode !== newNode) {
       return ($node: HTMLElement | Text) => {
-        const $newNode = render(newVTree);
+        const $newNode = render(newNode);
         $node.replaceWith($newNode);
         return $newNode;
       };
@@ -25,19 +25,18 @@ export default function diff(
     }
   }
 
-  if (oldVTree.tagName !== newVTree.tagName) {
+  if (oldNode.tagName !== newNode.tagName) {
     return ($node: HTMLElement | Text) => {
-      const $newNode = render(newVTree);
+      const $newNode = render(newNode);
       $node.replaceWith($newNode);
       return $newNode;
     };
   }
 
-  const patchAttrs = diffAttrs(oldVTree.attrs, newVTree.attrs);
-  // TODO: Confirm that the children types are being validated correctly
+  const patchAttrs = diffAttrs(oldNode.attrs, newNode.attrs);
   const patchChildren = diffChildren(
-    oldVTree.children as IElementNode[],
-    newVTree.children as IElementNode[]
+    oldNode.children as IElementNode[],
+    newNode.children as IElementNode[]
   );
 
   return ($node: HTMLElement) => {
@@ -52,7 +51,12 @@ function diffAttrs(oldAttrs: IAttributes, newAttrs: IAttributes) {
 
   for (const [k, v] of Object.entries(newAttrs)) {
     patches.push(($node: HTMLElement) => {
-      $node.setAttribute(k, v);
+      if (k === "textContent") {
+        $node.setAttribute(k, v);
+        $node.textContent = v;
+      } else {
+        $node.setAttribute(k, v);
+      }
       return $node;
     });
   }
@@ -80,11 +84,13 @@ function diffChildren(
 ) {
   const childPatches: ((node: HTMLElement) => void)[] = [];
 
-  (oldVChildren as IElementNode[]).forEach((oldVChild: IElementNode, i: number) => {
-    childPatches.push(diff(oldVChild, newVChildren[i] as IElementNode));
-  });
+  (oldVChildren as IElementNode[]).forEach(
+    (oldVChild: IElementNode, i: number) => {
+      childPatches.push(diff(oldVChild, newVChildren[i] as IElementNode));
+    }
+  );
 
-  const additionalPatches: ((node: HTMLElement) => HTMLElement)[]  = [];
+  const additionalPatches: ((node: HTMLElement) => HTMLElement)[] = [];
 
   for (const additionalVChild of newVChildren.slice(oldVChildren.length)) {
     additionalPatches.push(($node: HTMLElement) => {
@@ -95,7 +101,11 @@ function diffChildren(
 
   return ($parent: HTMLElement) => {
     $parent.childNodes.forEach(($child, i) => {
-      if (($child instanceof HTMLElement || $child.nodeType === Node.TEXT_NODE) && i < childPatches.length && typeof childPatches[i] === 'function') {
+      if (
+        ($child instanceof HTMLElement || $child.nodeType === Node.TEXT_NODE) &&
+        i < childPatches.length &&
+        typeof childPatches[i] === "function"
+      ) {
         childPatches[i]($child as HTMLElement);
       }
     });

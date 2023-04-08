@@ -3,6 +3,7 @@ import { IBand, IElementNode } from "../ts";
 
 export const createUIElements = (bandsData: IBand[]) => {
   let uiElements: IElementNode[] | string = [];
+  let node;
 
   for (let band of bandsData) {
     let bandElement: IElementNode;
@@ -31,18 +32,21 @@ export const createUIElements = (bandsData: IBand[]) => {
       attrs: {
         textContent: band.bandName,
       },
-      children: bandSongs,
+      children: [...bandSongs],
     });
 
     uiElements.push(bandElement);
   }
 
-  return createElement({
+
+  node = createElement({
     tagName: "div",
     attrs: {
       id: "app",
     },
     children: uiElements,
   });
+
+  return node
 };
 
