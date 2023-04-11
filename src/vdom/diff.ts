@@ -25,6 +25,7 @@ export default function diff(
     }
   }
 
+
   if (oldNode.tagName !== newNode.tagName) {
     return ($node: HTMLElement | Text) => {
       const $newNode = render(newNode);
@@ -51,12 +52,8 @@ function diffAttrs(oldAttrs: IAttributes, newAttrs: IAttributes) {
 
   for (const [k, v] of Object.entries(newAttrs)) {
     patches.push(($node: HTMLElement) => {
-      if (k === "textContent") {
-        $node.setAttribute(k, v);
-        $node.textContent = v;
-      } else {
-        $node.setAttribute(k, v);
-      }
+      $node.setAttribute(k, v);
+      if (k === "textContent") $node.textContent = v;
       return $node;
     });
   }
@@ -83,14 +80,13 @@ function diffChildren(
   newVChildren: IElementNode[] | string
 ) {
   const childPatches: ((node: HTMLElement) => void)[] = [];
+  const additionalPatches: ((node: HTMLElement) => HTMLElement)[] = [];
 
   (oldVChildren as IElementNode[]).forEach(
     (oldVChild: IElementNode, i: number) => {
       childPatches.push(diff(oldVChild, newVChildren[i] as IElementNode));
     }
   );
-
-  const additionalPatches: ((node: HTMLElement) => HTMLElement)[] = [];
 
   for (const additionalVChild of newVChildren.slice(oldVChildren.length)) {
     additionalPatches.push(($node: HTMLElement) => {

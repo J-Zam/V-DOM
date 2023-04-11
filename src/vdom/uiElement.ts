@@ -28,11 +28,18 @@ export const createUIElements = (bandsData: IBand[]) => {
     });
 
     bandElement = createElement({
-      tagName: "h2",
+      tagName: "div",
       attrs: {
-        textContent: band.bandName,
       },
-      children: [...bandSongs],
+      children: [
+        createElement({
+          tagName: "h3",
+          attrs: {
+            textContent: band.title
+          },
+        }),
+        ...bandSongs
+      ],
     });
 
     uiElements.push(bandElement);

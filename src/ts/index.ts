@@ -15,6 +15,6 @@ export interface IElementNode extends IAttributes {
 export type AttributePatch = (element: HTMLElement) => HTMLElement;
 
 export interface IBand {
-  bandName: string;
+  title: string;
   songs: string[];
 }
