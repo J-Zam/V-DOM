@@ -6,13 +6,15 @@ import diff from "./diff";
 import "../style.css";
 
 let nodeTree = document.getElementById("nodeTree") as HTMLElement;
+const root = document.getElementById("container")?.children[1] as HTMLElement;
+ 
 
 let uiOptions = [bandsList00, bandsList01];
 let ramdomElement = 0;
 
 let vApp = createUIElements(uiOptions[ramdomElement]);
 let $app = render(vApp);
-let $rootTag = mount($app, document.getElementById("app") as HTMLElement);
+let $rootTag = mount($app, root);
 nodeTree.textContent = JSON.stringify(vApp, undefined, 2);
 
 function updateApp() {

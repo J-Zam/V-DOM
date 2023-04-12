@@ -4,7 +4,8 @@ export interface IAttributes {
   dataCount?: number,
   width?: string,
   textContent?: string,
-  href?: string
+  href?: string,
+  class?: string
 }
 export interface IElementNode extends IAttributes {
   tagName: string;
@@ -14,7 +15,7 @@ export interface IElementNode extends IAttributes {
 
 export type AttributePatch = (element: HTMLElement) => HTMLElement;
 
-export interface IBand {
+export interface IPlaylist {
   title: string;
   songs: string[];
 }

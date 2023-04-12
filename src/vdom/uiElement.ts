@@ -1,7 +1,7 @@
 import createElement from "./createElement";
-import { IBand, IElementNode } from "../ts";
+import { IPlaylist, IElementNode } from "../ts";
 
-export const createUIElements = (bandsData: IBand[]) => {
+export const createUIElements = (bandsData: IPlaylist[]) => {
   let uiElements: IElementNode[] | string = [];
   let node;
 
@@ -30,6 +30,7 @@ export const createUIElements = (bandsData: IBand[]) => {
     bandElement = createElement({
       tagName: "div",
       attrs: {
+        class: "child"
       },
       children: [
         createElement({
