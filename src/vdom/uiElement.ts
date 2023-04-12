@@ -34,7 +34,7 @@ export const createUIElements = (bandsData: IPlaylist[]) => {
       },
       children: [
         createElement({
-          tagName: "h3",
+          tagName: "h2",
           attrs: {
             textContent: band.title
           },

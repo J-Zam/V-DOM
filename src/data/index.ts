@@ -16,7 +16,7 @@ export const bandsList00: IPlaylist[] = [
 
   export const bandsList01: IPlaylist[] = [
     {
-      title: "My playlist:",
+      title: "My playlist",
       songs: [
         "Someday (The Strokes)",
         "Last Nite (The Strokes)",

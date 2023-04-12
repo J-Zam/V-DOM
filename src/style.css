@@ -19,6 +19,11 @@ body {
 .child {
     position: -webkit-sticky; /* Safari */
     position: sticky;
-    top: 1rem;
+    top: 1.8rem;
     margin-left: 1rem;
+}
+
+.vDomTitle {
+    padding: 0;
+    margin: 1.8rem 0 0 0;
 }
