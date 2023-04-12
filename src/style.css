@@ -5,26 +5,40 @@ body {
     margin: 0;
 }
 
+.title {
+    border: 1px solid transparent;
+    position: sticky;
+    top: 0;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 2px solid #6d688985;
+}
+
+.title h1 {
+    font-size: 1rem;
+    color: #000000;
+    margin-left: 1rem;
+}
+
 .container {
     display: grid;
     margin: 0 auto;
     min-height: 100vh;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     max-width: 80rem;
 }
 
 #app {
-    border-left: 2px solid rgba(109, 104, 137, 0.52);
+    border-left: 2px solid #6d688985;
 }
 
-.child {
-    position: -webkit-sticky; /* Safari */
+.childNode {
+    position: -webkit-sticky;
     position: sticky;
-    top: 1.8rem;
+    top: 4rem;
     margin-left: 1rem;
 }
 
-.vDomTitle {
+.domSide {
     padding: 0;
-    margin: 1.8rem 0 0 0;
+    margin: 1.3rem 0 0 0;
 }

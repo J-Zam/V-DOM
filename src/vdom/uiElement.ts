@@ -30,22 +30,25 @@ export const createUIElements = (bandsData: IPlaylist[]) => {
     bandElement = createElement({
       tagName: "div",
       attrs: {
-        class: "child"
+        class: "childNode",
       },
       children: [
         createElement({
           tagName: "h2",
           attrs: {
-            textContent: band.title
+            textContent: band.title,
           },
         }),
-        ...bandSongs
+        createElement({
+          tagName: "ul",
+          attrs: {},
+          children: [...bandSongs],
+        }),
       ],
     });
 
     uiElements.push(bandElement);
   }
-
 
   node = createElement({
     tagName: "div",
@@ -55,6 +58,5 @@ export const createUIElements = (bandsData: IPlaylist[]) => {
     children: uiElements,
   });
 
-  return node
+  return node;
 };
-
