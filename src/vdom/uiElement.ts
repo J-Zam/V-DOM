@@ -41,7 +41,9 @@ export const createUIElements = (bandsData: IPlaylist[]) => {
         }),
         createElement({
           tagName: "ul",
-          attrs: {},
+          attrs: {
+            class: "songsList"
+          },
           children: [...bandSongs],
         }),
       ],

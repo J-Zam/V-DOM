@@ -10,7 +10,7 @@ export const bandsList00: IPlaylist[] = [
         "Juicebox (The Strokes)",
         "Fluorescent Adolescent (Arctic Monkeys)",
       ]
-    }
+    },
   ];
   
 
@@ -23,6 +23,7 @@ export const bandsList00: IPlaylist[] = [
         "Hard to Explain (The Strokes)",
         "Juicebox (The Strokes)",
         "12:51 (The Strokes)",
+        "Love of my life (Queen)"
       ]
     }
   ];
